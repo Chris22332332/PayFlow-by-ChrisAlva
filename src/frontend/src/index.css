@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "DM Sans";
+    --font-mono: "Geist Mono";
+    --radius: 0.5rem;
+
+    --background: 0.97 0.008 230;
+    --foreground: 0.18 0.015 230;
+    --card: 1.0 0.004 230;
+    --card-foreground: 0.18 0.015 230;
+    --popover: 1.0 0.004 230;
+    --popover-foreground: 0.18 0.015 230;
+
+    --primary: 0.52 0.16 195;
+    --primary-foreground: 0.97 0.005 195;
+
+    --secondary: 0.94 0.01 230;
+    --secondary-foreground: 0.28 0.015 230;
+    --muted: 0.88 0.01 230;
+    --muted-foreground: 0.5 0.012 230;
+
+    --accent: 0.68 0.15 55;
+    --accent-foreground: 0.97 0.005 55;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.97 0.005 25;
+
+    --border: 0.88 0.008 230;
+    --input: 0.88 0.008 230;
+    --ring: 0.52 0.16 195;
+
+    --success: 0.65 0.18 150;
+    --success-foreground: 0.97 0.005 150;
+
+    --warning: 0.65 0.2 70;
+    --warning-foreground: 0.12 0.01 70;
+
+    --chart-1: 0.65 0.22 40;
+    --chart-2: 0.6 0.12 185;
+    --chart-3: 0.4 0.07 227;
+    --chart-4: 0.83 0.19 84;
+    --chart-5: 0.77 0.19 70;
+
+    --sidebar: 0.97 0.008 230;
+    --sidebar-foreground: 0.18 0.015 230;
+    --sidebar-primary: 0.52 0.16 195;
+    --sidebar-primary-foreground: 0.97 0.005 195;
+    --sidebar-accent: 0.94 0.01 230;
+    --sidebar-accent-foreground: 0.28 0.015 230;
+    --sidebar-border: 0.88 0.008 230;
+    --sidebar-ring: 0.52 0.16 195;
+  }
+
+  .dark {
+    --background: 0.12 0.01 260;
+    --foreground: 0.92 0.015 260;
+    --card: 0.17 0.01 260;
+    --card-foreground: 0.92 0.015 260;
+    --popover: 0.21 0.015 260;
+    --popover-foreground: 0.92 0.015 260;
+
+    --primary: 0.72 0.18 190;
+    --primary-foreground: 0.12 0.01 190;
+
+    --secondary: 0.22 0.015 260;
+    --secondary-foreground: 0.82 0.012 260;
+    --muted: 0.22 0.015 260;
+    --muted-foreground: 0.55 0.012 260;
+
+    --accent: 0.75 0.15 55;
+    --accent-foreground: 0.12 0.01 55;
+
+    --destructive: 0.55 0.2 25;
+    --destructive-foreground: 0.92 0.015 25;
+
+    --success: 0.65 0.18 150;
+    --success-foreground: 0.92 0.015 150;
+
+    --warning: 0.65 0.2 70;
+    --warning-foreground: 0.12 0.01 70;
+
+    --border: 0.28 0.01 260;
+    --input: 0.28 0.01 260;
+    --ring: 0.72 0.18 190;
+
+    --chart-1: 0.49 0.24 264;
+    --chart-2: 0.7 0.17 162;
+    --chart-3: 0.77 0.19 70;
+    --chart-4: 0.63 0.27 304;
+    --chart-5: 0.65 0.25 16;
+
+    --sidebar: 0.17 0.01 260;
+    --sidebar-foreground: 0.92 0.015 260;
+    --sidebar-primary: 0.72 0.18 190;
+    --sidebar-primary-foreground: 0.12 0.01 190;
+    --sidebar-accent: 0.22 0.015 260;
+    --sidebar-accent-foreground: 0.82 0.012 260;
+    --sidebar-border: 0.28 0.01 260;
+    --sidebar-ring: 0.72 0.18 190;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .text-hero {
+    @apply text-4xl md:text-6xl font-bold tracking-tight;
+  }
+
+  .text-heading {
+    @apply text-2xl md:text-4xl font-bold tracking-tight;
+  }
+
+  .text-label {
+    @apply text-xs font-semibold tracking-widest uppercase;
+  }
+
+  .shadow-elevated {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .dark .shadow-elevated {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Currency pill badges */
+  .badge-currency {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-muted text-muted-foreground border border-border;
+  }
+
+  /* Tax breakdown — base amount */
+  .tax-base {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* Tax breakdown — tax amount (warm) */
+  .tax-line {
+    @apply text-xs text-accent font-mono;
+  }
+
+  /* Verification badge states */
+  .badge-pending {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-muted text-muted-foreground border border-border;
+  }
+
+  .badge-verified {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-primary/10 text-primary border border-primary/30;
+  }
+
+  .badge-failed {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/30;
+  }
+
+  /* Settings section icon container */
+  .settings-icon-container {
+    @apply flex items-center justify-center w-10 h-10 rounded-lg bg-muted/50;
+  }
+
+  /* Session card — device info */
+  .session-device {
+    @apply text-sm font-semibold text-foreground;
+  }
+
+  .session-meta {
+    @apply text-xs text-muted-foreground font-mono;
+  }
+
+  /* Receipt modal styles */
+  .receipt-header {
+    @apply flex items-center justify-between pb-4 border-b border-border;
+  }
+
+  .receipt-amount {
+    @apply text-3xl font-bold text-foreground font-mono;
+  }
+
+  .receipt-breakdown {
+    @apply space-y-2 my-4 p-3 rounded-lg bg-muted/30;
+  }
+
+  .receipt-row {
+    @apply flex justify-between text-sm;
+  }
+
+  /* Tax summary on transaction rows */
+  .tx-tax-summary {
+    @apply text-xs text-accent font-mono;
+  }
+
+  /* Multi-currency rate display */
+  .fx-rate {
+    @apply text-xs text-muted-foreground font-mono;
+  }
+
+  /* Settings grid layout */
+  .settings-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+}

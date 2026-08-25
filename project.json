@@ -1,0 +1,38 @@
+{
+  "overview": "PayFlow is a comprehensive, production-grade digital wallet and peer-to-peer payments platform. It delivers a full fintech experience — send and receive money, manage multi-currency wallets, track spending with analytics, save toward goals, manage cards with advanced controls, view an activity feed with reactions, and much more. Designed to rival PayPal, CashApp, and Revolut.",
+  "features": [
+    "Multi-currency wallet (USD, EUR, GBP, CAD, AUD, JPY) with live FX rates",
+    "P2P transfers via username, phone, QR code, or user ID",
+    "Spending analytics with charts, category breakdowns, and budget tools",
+    "Savings goals and vaults with round-up automation",
+    "Advanced card management: freeze/unfreeze, virtual card, spend controls",
+    "Activity feed with emoji reactions on payments",
+    "Notifications center with read/unread state",
+    "Loyalty points, cashback, and referral rewards",
+    "Subscription tiers (Free to Enterprise) with Stripe billing",
+    "Gamification: streaks, badges, achievements, leaderboard",
+    "Recurring and scheduled transfers",
+    "Split bills and group expenses",
+    "P2P payment links and bulk payments",
+    "Bill payments: utilities, phone top-up",
+    "Money pools for crowdfunding between friends",
+    "Dispute and chargeback flow",
+    "Help center with FAQ and chat support",
+    "Crypto wallet UI with live price ticker",
+    "Business analytics dashboard",
+    "Tax form generation and bank statement PDF download"
+  ],
+  "category": "finance",
+  "tags": [
+    "fintech",
+    "payments",
+    "wallet",
+    "p2p",
+    "analytics",
+    "savings",
+    "crypto",
+    "subscriptions",
+    "business"
+  ],
+  "last_updated": "2026-05-01T14:42:36.272Z"
+}

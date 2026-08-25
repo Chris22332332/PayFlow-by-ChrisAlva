@@ -1,0 +1,359 @@
+// Version: 1.0.0
+type ActivityItem__55689654 =
+  {
+    actionType : ActivityType__836217946;
+    actorPrincipal : Principal;
+    actorUsername : Text;
+    amount : ?Nat;
+    currency : ?Currency__884395579;
+    id : Nat;
+    isPublic : Bool;
+    note : ?Text;
+    reactions : [ReactionEntry__391511018];
+    timestamp : Timestamp__301639476
+  };
+type ActivityType__836217946 =
+  {#Achievement; #JoinedViaInvite; #Received; #SavingsGoal; #Sent};
+type Amount__460182544 = Nat;
+type AutoPayConfig__928412008 =
+  {
+    autoChargeOnSend : Bool;
+    autoDepositOnReceive : Bool;
+    defaultPayoutMethodId : ?Text
+  };
+type BillingInterval__55071928 = {#annual; #monthly};
+type BudgetSetting__958898403 =
+  {
+    alertThreshold : Nat;
+    category : SpendingCategory__325939052;
+    limitCents : Nat
+  };
+type CardControl__874750564 =
+  {
+    hasVirtualCard : Bool;
+    internationalEnabled : Bool;
+    isFrozen : Bool;
+    maxTransactionLimit : ?Nat;
+    onlineEnabled : Bool;
+    paymentMethodId : Text;
+    virtualCardExpiry : ?Text;
+    virtualCardLast4 : ?Text
+  };
+type Currency__884395579 = {#AUD; #CAD; #EUR; #GBP; #JPY; #USD};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DeviceSession__796117397 =
+  {
+    device_name : Text;
+    ip_address : Text;
+    is_current : Bool;
+    last_active : Timestamp__301639476;
+    os : Text;
+    session_id : Text
+  };
+type FxRate__231489403 =
+  {
+    fetched_at : Timestamp__301639476;
+    from_currency : Currency__884395579;
+    rate : Float;
+    to_currency : Currency__884395579
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type InviteRecord__954944947 =
+  {
+    code : Text;
+    owner : Principal;
+    paidRewards : [ReferralRewardRecord__670845199];
+    redemptions : [Redemption__207678448];
+    referralRewardPaid : Bool;
+    referredUsersFirstPaymentPrincipal : [Principal]
+  };
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MoneyRequest__295299545 =
+  {
+    amount : Amount__460182544;
+    currency : Currency__884395579;
+    id : TxId__592716307;
+    note : Text;
+    payer : Principal;
+    requester : Principal;
+    status : TxStatus__446544354;
+    timestamp : Timestamp__301639476
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type NotifType__852808086 = {#Alert; #Payment; #Promo; #Security; #System};
+type Notification__264708741 =
+  {
+    body : Text;
+    id : Nat;
+    isRead : Bool;
+    notifType : NotifType__852808086;
+    relatedTxId : ?TxId__592716307;
+    timestamp : Timestamp__301639476;
+    title : Text
+  };
+type NumberFormat__367133364 = {#Comma; #Period};
+type PaymentMethodType__509091104 = {#bank; #card};
+type PaymentMethod__736241749 =
+  {
+    account_holder_name : ?Text;
+    displayLabel : Text;
+    expiry : Text;
+    id : Nat;
+    isDefault : Bool;
+    last4 : Text;
+    pmType : PaymentMethodType__509091104;
+    stripe_payment_method_id : ?Text;
+    token : Text;
+    verification_status : VerificationStatus__332413074
+  };
+type PhoneVerification__970896572 =
+  {code : Text; expiresAt : Int; phone : Text; verified : Bool};
+type ReactionEntry__391511018 = {by : [Principal]; emoji : Text};
+type Redemption__207678448 = {invitee : Principal; timestamp : Int};
+type ReferralRewardRecord__670845199 =
+  {amount : Nat; inviteCode : Text; paidAt : Int};
+type SavingsCategory__826177668 =
+  {#Car; #Custom; #Emergency; #Home; #Vacation};
+type SavingsGoal__824674819 =
+  {
+    autoDepositAmount : ?Nat;
+    autoDepositInterval : ?Text;
+    category : SavingsCategory__826177668;
+    createdAt : Timestamp__301639476;
+    currentAmount : Nat;
+    id : Nat;
+    isCompleted : Bool;
+    isLocked : Bool;
+    name : Text;
+    targetAmount : Nat;
+    targetDate : ?Timestamp__301639476
+  };
+type SpendingCategory__325939052 =
+  {#Bills; #Entertainment; #Food; #Other; #Shopping; #Transfers; #Transport};
+type SubscriptionStatus__473694714 =
+  {#active; #cancelled; #expired; #trialing};
+type SubscriptionTier__1061416485 =
+  {#business; #enterprise; #free; #plus; #pro};
+type Subscription__929711557 =
+  {
+    currentPeriodEnd : Int;
+    interval : BillingInterval__55071928;
+    status : SubscriptionStatus__473694714;
+    stripeSubscriptionId : ?Text;
+    tier : SubscriptionTier__1061416485
+  };
+type Timestamp__301639476 = Int;
+type Transaction__15087323 =
+  {
+    amount : Amount__460182544;
+    base_amount : Amount__460182544;
+    counterparty : ?Principal;
+    currency : Currency__884395579;
+    id : TxId__592716307;
+    note : Text;
+    original_amount : ?Amount__460182544;
+    original_currency : ?Currency__884395579;
+    requestId : ?TxId__592716307;
+    status : TxStatus__446544354;
+    tax_amount : Amount__460182544;
+    tax_rate : Nat;
+    timestamp : Timestamp__301639476;
+    txType : TxType__915280319
+  };
+type TrustedContact__925091802 =
+  {
+    accessLevel : Text;
+    addedAt : Timestamp__301639476;
+    email : ?Text;
+    id : Nat;
+    name : Text;
+    phone : ?Text;
+    relationship : Text
+  };
+type TxHistoryVisibility__611821000 = {#FriendsOnly; #Private; #Public};
+type TxId__592716307 = Nat;
+type TxMetadata__867201918 =
+  {note : ?Text; tags : [Text]; txId : TxId__592716307};
+type TxStatus__446544354 = {#cancelled; #completed; #pending; #rejected};
+type TxType__915280319 = {#deposit; #received; #request; #sent; #withdrawal};
+type UserProfile__446616884 =
+  {
+    bio : ?Text;
+    displayName : Text;
+    email : Text;
+    phone : Text;
+    photoUrl : ?Text;
+    userId : Text;
+    username : Text
+  };
+type UserRole__1073662873 = {#admin; #guest; #user};
+type UserSettings__451559232 =
+  {
+    daily_limit : Amount__460182544;
+    data_sharing : Bool;
+    decimal_places : Nat;
+    monthly_limit : Amount__460182544;
+    notification_email_receipts : Bool;
+    notification_p2p_requests : Bool;
+    notification_payment_alerts : Bool;
+    notification_promotions : Bool;
+    number_format : NumberFormat__367133364;
+    per_tx_limit : Amount__460182544;
+    primary_currency : Currency__884395579;
+    tx_history_visibility : TxHistoryVisibility__611821000
+  };
+type VerificationStatus__332413074 =
+  {#Failed; #Pending; #Unverified; #Verified};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable activityFeed :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ActivityItem__55689654]];
+      var elementIndex : Nat__490723111
+    };
+  stable autoPayConfigs :
+    {
+      var root : Node__46230540<Principal, AutoPayConfig__928412008>;
+      var size : Nat__490723111
+    };
+  stable balances :
+    {
+      var root : Node__46230540<Principal, Amount__460182544>;
+      var size : Nat__490723111
+    };
+  stable budgets :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<BudgetSetting__958898403>>;
+      var size : Nat__490723111
+    };
+  stable cardControls :
+    {
+      var root : Node__46230540<Text, CardControl__874750564>;
+      var size : Nat__490723111
+    };
+  stable contactsStore :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<TrustedContact__925091802>>;
+      var size : Nat__490723111
+    };
+  stable fxRateCache :
+    {
+      var root : Node__46230540<Text, FxRate__231489403>;
+      var size : Nat__490723111
+    };
+  stable invites :
+    {
+      var root : Node__46230540<Principal, InviteRecord__954944947>;
+      var size : Nat__490723111
+    };
+  stable ledger :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<Transaction__15087323>>;
+      var size : Nat__490723111
+    };
+  stable mcBalances :
+    {
+      var root :
+        Node__46230540<Principal,
+                        Map__605269027<Currency__884395579, Amount__460182544>>;
+      var size : Nat__490723111
+    };
+  stable nextActId : {var value : Nat};
+  stable nextContactId : {var value : Nat};
+  stable nextGoalId : {var value : Nat};
+  stable nextNotifId : {var value : Nat};
+  stable nextPmId : {var value : Nat};
+  stable nextTxId : {var value : Nat};
+  stable notifStore :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<Notification__264708741>>;
+      var size : Nat__490723111
+    };
+  stable paymentMethods :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<PaymentMethod__736241749>>;
+      var size : Nat__490723111
+    };
+  stable phoneVerifications :
+    {
+      var root : Node__46230540<Principal, PhoneVerification__970896572>;
+      var size : Nat__490723111
+    };
+  stable profiles :
+    {
+      var root : Node__46230540<Principal, UserProfile__446616884>;
+      var size : Nat__490723111
+    };
+  stable requests :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<MoneyRequest__295299545>>;
+      var size : Nat__490723111
+    };
+  stable savingsStore :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<SavingsGoal__824674819>>;
+      var size : Nat__490723111
+    };
+  stable sessionStore :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<DeviceSession__796117397>>;
+      var size : Nat__490723111
+    };
+  stable settingsStore :
+    {
+      var root : Node__46230540<Principal, UserSettings__451559232>;
+      var size : Nat__490723111
+    };
+  stable spendCategories :
+    {
+      var root :
+        Node__46230540<Principal,
+                        Map__605269027<TxId__592716307,
+                                        SpendingCategory__325939052>>;
+      var size : Nat__490723111
+    };
+  stable stripeConfig : {var secretKey : Text};
+  stable subscriptions :
+    {
+      var root : Node__46230540<Principal, Subscription__929711557>;
+      var size : Nat__490723111
+    };
+  stable twilioConfig :
+    {var accountSid : Text; var authToken : Text; var fromNumber : Text};
+  stable txMetaStore :
+    {
+      var root :
+        Node__46230540<Principal,
+                        Map__605269027<TxId__592716307, TxMetadata__867201918>>;
+      var size : Nat__490723111
+    }
+};

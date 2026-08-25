@@ -1,0 +1,512 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type VerificationStatus = 
+ variant {
+   Failed;
+   Pending;
+   Unverified;
+   Verified;
+ };
+type UserSettings = 
+ record {
+   daily_limit: Amount;
+   data_sharing: bool;
+   decimal_places: nat;
+   monthly_limit: Amount;
+   notification_email_receipts: bool;
+   notification_p2p_requests: bool;
+   notification_payment_alerts: bool;
+   notification_promotions: bool;
+   number_format: NumberFormat;
+   per_tx_limit: Amount;
+   primary_currency: Currency;
+   tx_history_visibility: TxHistoryVisibility;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   bio: opt text;
+   displayName: text;
+   email: text;
+   phone: text;
+   photoUrl: opt text;
+   userId: text;
+   username: text;
+ };
+type TxType = 
+ variant {
+   deposit;
+   received;
+   request;
+   sent;
+   withdrawal;
+ };
+type TxStatus = 
+ variant {
+   cancelled;
+   completed;
+   pending;
+   rejected;
+ };
+type TxMetadata = 
+ record {
+   note: opt text;
+   tags: vec text;
+   txId: TxId;
+ };
+type TxId = nat;
+type TxHistoryVisibility = 
+ variant {
+   FriendsOnly;
+   Private;
+   Public;
+ };
+type TrustedContact = 
+ record {
+   accessLevel: text;
+   addedAt: Timestamp;
+   email: opt text;
+   id: nat;
+   name: text;
+   phone: opt text;
+   relationship: text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type Transaction = 
+ record {
+   amount: Amount;
+   base_amount: Amount;
+   counterparty: opt principal;
+   currency: Currency;
+   id: TxId;
+   note: text;
+   original_amount: opt Amount;
+   original_currency: opt Currency;
+   requestId: opt TxId;
+   status: TxStatus;
+   tax_amount: Amount;
+   tax_rate: nat;
+   timestamp: Timestamp;
+   txType: TxType;
+ };
+type Timestamp = int;
+type SubscriptionTier = 
+ variant {
+   business;
+   enterprise;
+   free;
+   plus;
+   pro;
+ };
+type SubscriptionStatus = 
+ variant {
+   active;
+   cancelled;
+   expired;
+   trialing;
+ };
+type Subscription = 
+ record {
+   currentPeriodEnd: int;
+   interval: BillingInterval;
+   status: SubscriptionStatus;
+   stripeSubscriptionId: opt text;
+   tier: SubscriptionTier;
+ };
+type StripeSetupIntent = 
+ record {
+   client_secret: text;
+   payment_method_id: opt text;
+ };
+type StripeSessionStatus = 
+ variant {
+   completed: record {
+                response: text;
+                userPrincipal: opt text;
+              };
+   failed: record {error: text;};
+ };
+type StripePaymentResult = 
+ record {
+   amount_charged: Amount;
+   charge_id: opt text;
+   currency: Currency;
+   error_message: opt text;
+   success: bool;
+ };
+type SpendingCategory = 
+ variant {
+   Bills;
+   Entertainment;
+   Food;
+   Other;
+   Shopping;
+   Transfers;
+   Transport;
+ };
+type ShoppingItem = 
+ record {
+   currency: text;
+   priceInCents: nat;
+   productDescription: text;
+   productName: text;
+   quantity: nat;
+ };
+type SavingsGoal = 
+ record {
+   autoDepositAmount: opt nat;
+   autoDepositInterval: opt text;
+   category: SavingsCategory;
+   createdAt: Timestamp;
+   currentAmount: nat;
+   id: nat;
+   isCompleted: bool;
+   isLocked: bool;
+   name: text;
+   targetAmount: nat;
+   targetDate: opt Timestamp;
+ };
+type SavingsCategory = 
+ variant {
+   Car;
+   Custom;
+   Emergency;
+   Home;
+   Vacation;
+ };
+type ReferralRewardSummary = 
+ record {
+   paidRewards: vec ReferralRewardRecord;
+   pendingRewards: nat;
+   totalEarned: nat;
+ };
+type ReferralRewardRecord = 
+ record {
+   amount: nat;
+   inviteCode: text;
+   paidAt: int;
+ };
+type ReactionEntry = 
+ record {
+   by: vec principal;
+   emoji: text;
+ };
+type PaymentMethodType = 
+ variant {
+   bank;
+   card;
+ };
+type PaymentMethod = 
+ record {
+   account_holder_name: opt text;
+   displayLabel: text;
+   expiry: text;
+   id: nat;
+   isDefault: bool;
+   last4: text;
+   pmType: PaymentMethodType;
+   stripe_payment_method_id: opt text;
+   token: text;
+   verification_status: VerificationStatus;
+ };
+type NumberFormat = 
+ variant {
+   Comma;
+   Period;
+ };
+type Notification = 
+ record {
+   body: text;
+   id: nat;
+   isRead: bool;
+   notifType: NotifType;
+   relatedTxId: opt TxId;
+   timestamp: Timestamp;
+   title: text;
+ };
+type NotifType = 
+ variant {
+   Alert;
+   Payment;
+   Promo;
+   Security;
+   System;
+ };
+type MoneyRequest = 
+ record {
+   amount: Amount;
+   currency: Currency;
+   id: TxId;
+   note: text;
+   payer: principal;
+   requester: principal;
+   status: TxStatus;
+   timestamp: Timestamp;
+ };
+type InviteStats = 
+ record {
+   code: text;
+   redeemerUsernames: vec text;
+   redemptionCount: nat;
+ };
+type FxRate = 
+ record {
+   fetched_at: Timestamp;
+   from_currency: Currency;
+   rate: float64;
+   to_currency: Currency;
+ };
+type DeviceSession = 
+ record {
+   device_name: text;
+   ip_address: text;
+   is_current: bool;
+   last_active: Timestamp;
+   os: text;
+   session_id: text;
+ };
+type CurrencyAmount = 
+ record {
+   amount: Amount;
+   currency: Currency;
+ };
+type Currency = 
+ variant {
+   AUD;
+   CAD;
+   EUR;
+   GBP;
+   JPY;
+   USD;
+ };
+type CategoryBreakdown = 
+ record {
+   category: SpendingCategory;
+   count: nat;
+   total: nat;
+ };
+type CardControl = 
+ record {
+   hasVirtualCard: bool;
+   internationalEnabled: bool;
+   isFrozen: bool;
+   maxTransactionLimit: opt nat;
+   onlineEnabled: bool;
+   paymentMethodId: text;
+   virtualCardExpiry: opt text;
+   virtualCardLast4: opt text;
+ };
+type BudgetSetting = 
+ record {
+   alertThreshold: nat;
+   category: SpendingCategory;
+   limitCents: nat;
+ };
+type BillingInterval = 
+ variant {
+   annual;
+   monthly;
+ };
+type AutoPayConfig = 
+ record {
+   autoChargeOnSend: bool;
+   autoDepositOnReceive: bool;
+   defaultPayoutMethodId: opt text;
+ };
+type AnalyticsSummary = 
+ record {
+   avgTransaction: nat;
+   biggestPurchase: nat;
+   byCategory: vec CategoryBreakdown;
+   monthOverMonth: int;
+   totalSpent: nat;
+ };
+type Amount = nat;
+type ActivityType = 
+ variant {
+   Achievement;
+   JoinedViaInvite;
+   Received;
+   SavingsGoal;
+   Sent;
+ };
+type ActivityItem = 
+ record {
+   actionType: ActivityType;
+   actorPrincipal: principal;
+   actorUsername: text;
+   amount: opt nat;
+   currency: opt Currency;
+   id: nat;
+   isPublic: bool;
+   note: opt text;
+   reactions: vec ReactionEntry;
+   timestamp: Timestamp;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  acceptMoneyRequest: (requestId: TxId) -> ();
+  addFunds: (amount: Amount) -> ();
+  addPaymentMethod: (token: text, last4: text, expiry: text, pmType:
+   PaymentMethodType, displayLabel: text) -> ();
+  addReaction: (activityId: nat, emoji: text) -> (bool);
+  addTrustedContact: (name: text, relationship: text, phone: opt text, email:
+   opt text, accessLevel: text) -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  autoDepositOnReceive: (txId: TxId) -> (variant {
+                                           err: text;
+                                           ok: text;
+                                         });
+  cancelSubscription: () -> (variant {
+                               err: text;
+                               ok: bool;
+                             });
+  chargeCard: (stripePaymentMethodId: text, amount: Amount, currency:
+   Currency) -> (StripePaymentResult);
+  confirmStripePaymentMethod: (stripePaymentMethodId: text, displayLabel:
+   text, pmType: PaymentMethodType, last4: text, expiry: text, holderName:
+   opt text) -> (PaymentMethod);
+  convertCurrency: (amount: Amount, from: Currency, to: Currency) ->
+   (CurrencyAmount);
+  createCheckoutSession: (items: vec ShoppingItem, successUrl: text,
+   cancelUrl: text) -> (text);
+  createInviteCode: () -> (text);
+  createSavingsGoal: (name: text, category: SavingsCategory, targetAmount:
+   nat, targetDate: opt Timestamp) -> ();
+  createStripeSetupIntent: () -> (StripeSetupIntent);
+  createSubscriptionCheckout: (tier: SubscriptionTier, interval:
+   BillingInterval) -> (variant {
+                          err: text;
+                          ok: text;
+                        });
+  deleteGoal: (goalId: nat) -> ();
+  depositToGoal: (goalId: nat, amount: nat) -> ();
+  exportTransactionsCsv: () -> (text);
+  findUser: (field: variant {
+                      email: text;
+                      phone: text;
+                      username: text;
+                    }) -> (opt principal) query;
+  findUserByIdOrUsername: (identifier: text) -> (opt UserProfile) query;
+  freezeCard: (pmId: text) -> ();
+  fxTransform: (input: TransformationInput) -> (TransformationOutput) query;
+  generateVirtualCard: (pmId: text) -> (CardControl);
+  getActivityFeed: (limit: nat, offset: nat) -> (vec ActivityItem) query;
+  getAutoPayConfig: () -> (AutoPayConfig) query;
+  getBalance: () -> (Amount) query;
+  getBudgets: () -> (vec BudgetSetting) query;
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getCardControls: (pmId: text) -> (CardControl) query;
+  getCurrencySymbol: (currency: Currency) -> (text) query;
+  getDeviceSessions: () -> (vec DeviceSession);
+  getExchangeRate: (from: Currency, to: Currency) -> (FxRate);
+  getInviteCode: () -> (text);
+  getInviteStats: () -> (InviteStats) query;
+  getMultiCurrencyBalances: () -> (vec record {
+                                         Currency;
+                                         Amount;
+                                       }) query;
+  getNotifications: () -> (vec Notification) query;
+  getPendingRequests: () -> (vec MoneyRequest) query;
+  getReferralRewards: () -> (ReferralRewardSummary) query;
+  getSavingsGoals: () -> (vec SavingsGoal) query;
+  getSpendingAnalytics: (month: nat, year: nat) -> (AnalyticsSummary) query;
+  getStripeSessionStatus: (sessionId: text) -> (StripeSessionStatus);
+  getSubscription: () -> (opt Subscription) query;
+  getSubscriptionStatus: () -> (SubscriptionStatus) query;
+  getTransactionHistory: (filter: opt TxType) -> (vec Transaction) query;
+  getTransactionMetadata: (txId: TxId) -> (TxMetadata) query;
+  getTrustedContacts: () -> (vec TrustedContact) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  getUserSettings: () -> (UserSettings);
+  initiateWithdrawal: (stripePaymentMethodId: text, amount: Amount, currency:
+   Currency) -> (StripePaymentResult);
+  isCallerAdmin: () -> (bool) query;
+  isStripeConfigured: () -> (bool) query;
+  isTwilioConfigured: () -> (bool) query;
+  listPaymentMethods: () -> (vec PaymentMethod) query;
+  lockGoal: (goalId: nat) -> ();
+  markAllNotificationsRead: () -> ();
+  markNotificationRead: (id: nat) -> (bool);
+  redeemInviteCode: (code: text) -> (bool);
+  rejectMoneyRequest: (requestId: TxId) -> ();
+  removePaymentMethod: (id: nat) -> ();
+  removeReaction: (activityId: nat, emoji: text) -> (bool);
+  removeTrustedContact: (id: nat) -> (bool);
+  reportCardLostStolen: (pmId: text) -> ();
+  requestMoney: (payer: principal, amount: Amount, note: text) -> ();
+  requestPhoneVerification: (phone: text) -> (variant {
+                                                err: text;
+                                                ok: text;
+                                              });
+  revokeAllSessions: () -> ();
+  revokeDeviceSession: (sessionId: text) -> ();
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  sendMoney: (recipient: principal, amount: Amount, note: text) -> ();
+  setBudget: (category: SpendingCategory, limitCents: nat, alertThreshold:
+   nat) -> ();
+  setCardControls: (pmId: text, onlineEnabled: bool, internationalEnabled:
+   bool, maxTxLimit: opt nat) -> ();
+  setDefaultPaymentMethod: (id: nat) -> ();
+  setGoalAutoDeposit: (goalId: nat, amount: nat, interval: text) -> ();
+  setStripeConfiguration: (secretKey: text) -> ();
+  setTransactionCategory: (txId: TxId, category: SpendingCategory) -> ();
+  setTransactionNote: (txId: TxId, note: text) -> ();
+  setTransactionTags: (txId: TxId, tags: vec text) -> ();
+  setTwilioConfig: (accountSid: text, authToken: text, fromNumber: text) ->
+   ();
+  togglePaymentVisibility: (actId: nat, isPublic: bool) -> (bool);
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  twilioTransform: (input: TransformationInput) ->
+   (TransformationOutput) query;
+  unfreezeCard: (pmId: text) -> ();
+  unlinkPhone: () -> (variant {
+                        err: text;
+                        ok: bool;
+                      });
+  updateAutoPayConfig: (config: AutoPayConfig) ->
+   (variant {
+      err: text;
+      ok: bool;
+    });
+  updateProfilePhoto: (photoUrl: text) -> (variant {
+                                             err: text;
+                                             ok: bool;
+                                           });
+  updateTrustedContact: (id: nat, name: text, relationship: text, phone:
+   opt text, email: opt text, accessLevel: text) -> (bool);
+  updateUserSettings: (updated: UserSettings) -> ();
+  upsertSubscription: (sub: Subscription) -> ();
+  validateInviteCode: (code: text) -> (bool) query;
+  verifyPhone: (code: text) -> (variant {
+                                  err: text;
+                                  ok: bool;
+                                });
+  withdrawFromGoal: (goalId: nat, amount: nat) -> ();
+  withdrawFunds: (amount: Amount) -> ();
+}
